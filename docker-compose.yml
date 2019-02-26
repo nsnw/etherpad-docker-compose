@@ -1,0 +1,23 @@
+version: '3'
+
+networks:
+  app:
+
+services:
+
+  db:
+    restart: always
+    image: "postgres:10"
+    environment:
+      - POSTGRES_DB=etherpad
+      - POSTGRES_USER=etherpad
+      - POSTGRES_PASSWORD=changeme
+    networks:
+      - app
+  etherpad:
+    build:
+      context: .
+    ports:
+      - 9001:9001
+    networks:
+      - app
